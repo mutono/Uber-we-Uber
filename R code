@@ -1,0 +1,32 @@
+#####
+## Uber Data-
+######
+setwd("/Users/mutononyamai/Dropbox/Uber paper/Travels_Waiyaki Way")
+
+## January 01/52 data for 2016-2018 during the Early Morning(EM) Hours (12am-7am)
+uber<- read.csv(file.choose())
+names(uber)
+head(uber, 2)
+
+## Separate the 2016 and 2017 data
+uberJan01_2016EM<- uber[,1:8]
+uberJan01_2017EM<- uber[,c(1:4,9:12)]
+uberJan01_2018<- read.csv(file.choose())
+names(uberJan01_2016EM<- c("originid","originname","destmovtid","destmovtname","datetime","meantravel","lowerci","upperci")
+names(uberJan01_2017EM<- c("originid","originname","destmovtid","destmovtname","datetime","meantravel","lowerci","upperci")
+names(uberJan01_2018EM<- c("originid","originname","destmovtid","destmovtname","datetime","meantravel","lowerci","upperci")
+
+## Combine the data for the three years
+uberJan01_EMCombined<- rbind(uberJan01_2016EM, uberJan01_2017EM, uberJan01_2018EM)
+
+##Add the shapefile
+Nairobi<- read_shape(file.choose(), as.sf=TRUE, stringsAsFactors=FALSE)
+
+##Merge the shapefile and the datafile
+uberJan01_2016EMSF<- append_data(Nairobi, uberJan01_2016EM, key.shp="MOVEMENT_I", key.data="destmovtid")
+uberJan01_2017EMSF<- append_data(Nairobi, uberJan01_2017EM, key.shp="MOVEMENT_I", key.data="destmovtid")
+uberJan01_2018EMSF<- append_data(Nairobi, uberJan01_2018EM, key.shp="MOVEMENT_I", key.data="destmovtid")
+uberJan01_EMCombinedSF<- append_data(Nairobi, uberJan01_EMCombined, key.shp="MOVEMENT_I", key.data="destmovtid")
+
+
+
