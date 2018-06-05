@@ -28,5 +28,14 @@ uberJan01_2017EMSF<- append_data(Nairobi, uberJan01_2017EM, key.shp="MOVEMENT_I"
 uberJan01_2018EMSF<- append_data(Nairobi, uberJan01_2018EM, key.shp="MOVEMENT_I", key.data="destmovtid")
 uberJan01_EMCombinedSF<- append_data(Nairobi, uberJan01_EMCombined, key.shp="MOVEMENT_I", key.data="destmovtid")
 
+tm1<- qtm(uberJan01_2016EMSF, fill="meantravel", text.size=0.5, fill.title="Mean Travel- Sec", text.root=5, bg.color="white", borders="white")+ tm_layout(title="February 2016", title.size=0.9, legend.show=FALSE)
+
+tm2<- qtm(uberJan01_2017EMSF, fill="meantravel", text.size=0.5, fill.title="Mean Travel- Sec", text.root=5, bg.color="white", borders="white")+ tm_layout(title="February 2017", title.size=0.9, legend.show=FALSE)
+
+tm3<- qtm(uberJan01_2018EMSF, fill="meantravel", text.size=0.5, fill.title="Mean Travel- Sec", text.root=5, bg.color="white", borders="white")+ tm_layout(title="February 2018", title.size=0.9, legend.outside=TRUE)
+
+current.mode<- tmap_mode("plot")
+tmap_arrange(tm1, tm2, tm3, asp=NA, ncol=3)
+tmap_mode(current.mode)
 
 
